@@ -47,6 +47,14 @@ public class PointsManager : TNBehaviour
         pointsThreshold = StaticData.DataInstance.pointsThreshold;
         pointsThresholdPerLevel = StaticData.DataInstance.pointsThresholdPerLevel;
         maxLevel = FindObjectOfType<ChangeCharacterSize>().CharacterModels.Count;
+        FindObjectOfType<DeathManager>().onDeathEvent += OnDeathEventHandler;
+    }
+
+    private void OnDeathEventHandler(object sender, DeathManager.OnDeathEventArgs e)
+    {
+        currentPoints = 0;
+        currentLevel = 1;
+        pointsThreshold = StaticData.DataInstance.pointsThreshold;
     }
 
     public void PointsAdd(int points)
@@ -60,7 +68,6 @@ public class PointsManager : TNBehaviour
             CurrentLevel++;
             Debug.Log("Current Level = " + CurrentLevel);
         }
-
     }
 
 }

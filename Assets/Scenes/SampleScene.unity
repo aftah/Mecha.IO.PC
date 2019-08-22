@@ -225,9 +225,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpMax: 10
-  hpMaxPerLevel: 5
+  hpMaxPerLevel: 10
   pointsThreshold: 10
-  pointsThresholdPerLevel: 5
+  pointsThresholdPerLevel: 10
   healPerItem: 5
   pointsPerItem: 5
   characterMoveSpeed: 2
@@ -243,8 +243,7 @@ MonoBehaviour:
   networkSendRate: 0.1
   cockpitMoveSmoothTime: 2
   numberOfTeleportableObjects: 5
-  teleportableObject: Teleportable
-  destroyableObject: Destroyable
+  Object: Object
   deathRangeLootOffset: 3
   autoDestroyDelay: 5
   topLeftCorner: {fileID: 209248063}

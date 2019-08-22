@@ -10,20 +10,20 @@ public class ItemInstantiate : TNBehaviour
     private float mapLength;
     private int numberItems;
     private string prefabToInstantiate;
-    private bool hasInstantiated = false;
 
     protected override void Awake()
     {
         base.Awake();
         numberItems = StaticData.DataInstance.numberOfTeleportableObjects;
-        prefabToInstantiate = StaticData.DataInstance.teleportableObject;
+        prefabToInstantiate = StaticData.DataInstance.Object;
         mapHeight = StaticData.DataInstance.topLeftCornerPosition;
         mapLength = StaticData.DataInstance.bottomRightCornerPosition;
     }
 
     private void Start()
     {
-        Invoke("InstantiateObjects", 1);
+        if (TNManager.GetChannel(tno.channelID).players.Count == 0)
+            Invoke("InstantiateObjects", 1);
     }
 
     private void InstantiateObjects()
@@ -34,8 +34,6 @@ public class ItemInstantiate : TNBehaviour
             int randomX = UnityEngine.Random.Range(0, (int)mapLength);
             TNManager.Instantiate(tno.channelID, "Object", prefabToInstantiate, true, randomZ, randomX);
         }
-       // tno.Send(1, Target.AllSaved);
-    
     }
 
     [RCC]
@@ -44,12 +42,5 @@ public class ItemInstantiate : TNBehaviour
         GameObject lootableObject = prefab.Instantiate();
         lootableObject.transform.position = new Vector3(XPos, 0, ZPos);
         return lootableObject;
-    }
-
-    [RFC(1)]
-    public void TechniqueSecrete()
-    {
-        Debug.Log("Ohboi");
-        DestroySelf();
     }
 }

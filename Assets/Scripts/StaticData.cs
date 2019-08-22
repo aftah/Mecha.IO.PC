@@ -26,8 +26,7 @@ public class StaticData : MonoBehaviour
     public float networkSendRate;
     public float cockpitMoveSmoothTime;
     public int numberOfTeleportableObjects;
-    public string teleportableObject;
-    public string destroyableObject;
+    public string Object;
     public float deathRangeLootOffset;
     public float autoDestroyDelay;
     public Transform topLeftCorner;

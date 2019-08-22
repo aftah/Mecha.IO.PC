@@ -4,24 +4,34 @@ using UnityEngine;
 using TNet;
 using System.Linq;
 
-public abstract class CollectableObject : TNBehaviour
+public class CollectableObject : TNBehaviour
 {
     private int heal;
     private int points;
+    private  bool destroyable = false;
+    private float mapLength;
+    private float mapHeight;
+
+    public bool Destroyable { get => destroyable; set => destroyable = value; }
 
     protected override void Awake()
     {
         base.Awake();
         heal = StaticData.DataInstance.healPerItem;
         points = StaticData.DataInstance.pointsPerItem;
+        mapLength = StaticData.DataInstance.bottomRightCornerPosition;
+        mapHeight = StaticData.DataInstance.topLeftCornerPosition;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player" && tno.isMine)
+        if (other.gameObject.tag == "Player" /*&& tno.isMine*/)
         {
             tno.Send("Pickup", Target.AllSaved, other.gameObject.GetComponentsInParent<TNObject>().Where(x => x.uid != 0).FirstOrDefault().uid);
-            OnPickUp();
+            if (Destroyable)
+                Boum();
+            else
+                Teleport();
         }
     }
 
@@ -32,9 +42,29 @@ public abstract class CollectableObject : TNBehaviour
         TNObject.Find(tno.channelID, id).GetComponent<PointsManager>().PointsAdd(points);
     }
 
-    protected virtual void OnPickUp()
+    private void Teleport()
     {
+        int randomZ = UnityEngine.Random.Range(0, (int)mapHeight);
+        int randomX = UnityEngine.Random.Range(0, (int)mapLength);
+        tno.Send("TeleportItem", Target.AllSaved, randomZ, randomX);
+    }
 
+    private void Boum()
+    {
+        if (tno.isMine)
+            tno.Send("NetworkDestroy", Target.AllSaved);
+    }
+
+    [RFC]
+    private void NetworkDestroy()
+    {
+        DestroySelf();
+    }
+
+    [RFC]
+    private void TeleportItem(int randomZ, int randomX)
+    {
+        gameObject.transform.position = new Vector3(randomX, 0, randomZ);
     }
 
 }

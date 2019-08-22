@@ -15,16 +15,16 @@ public class TeleportableObject : CollectableObject
         mapHeight = StaticData.DataInstance.topLeftCornerPosition;
     }
 
-    protected override void OnPickUp()
-    {
-        tno.Send("TeleportItem", Target.AllSaved);
-    }
+    //protected override void OnPickUp()
+    //{
+    //    int randomZ = UnityEngine.Random.Range(0, (int)mapHeight);
+    //    int randomX = UnityEngine.Random.Range(0, (int)mapLength);
+    //    tno.Send("TeleportItem", Target.AllSaved, randomZ, randomX);
+    //}
 
     [RFC]
-    private void TeleportItem()
+    private void TeleportItem(int randomZ, int randomX)
     {
-        int randomZ = UnityEngine.Random.Range(0, (int)mapHeight);
-        int randomX = UnityEngine.Random.Range(0, (int)mapLength);
         gameObject.transform.position = new Vector3(randomX, 0, randomZ);
     }
 }

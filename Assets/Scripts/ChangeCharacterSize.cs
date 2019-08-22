@@ -14,11 +14,25 @@ public class ChangeCharacterSize : TNBehaviour
     {
         base.Awake();
         FindObjectOfType<PointsManager>().onLevelUp += OnLevelUpEventHandler;
+        FindObjectOfType<DeathManager>().onDeathEvent += OnDeathEventHandler;
+    }
+
+    private void OnDeathEventHandler(object sender, DeathManager.OnDeathEventArgs e)
+    {
+        ResetSize();
     }
 
     private void OnLevelUpEventHandler(object sender, PointsManager.LevelUpEventArgs e)
     {
         IncreaseSize();
+    }
+
+    public void ResetSize()
+    {
+        if (tno.isMine)
+        {
+            tno.Send("NetworkResetSize", Target.AllSaved);
+        }
     }
 
     public void IncreaseSize()
@@ -27,6 +41,14 @@ public class ChangeCharacterSize : TNBehaviour
         {
             tno.Send("NetworkIncreaseSize", Target.AllSaved);
         }
+    }
+
+    [RFC]
+    private void NetworkResetSize()
+    {
+        CharacterModels[currentSize].SetActive(false);
+        currentSize = 0;
+        CharacterModels[currentSize].SetActive(true);
     }
 
     [RFC]

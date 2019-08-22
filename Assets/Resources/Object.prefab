@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 6454017059947272520}
   - component: {fileID: 1705990587405583630}
   - component: {fileID: 6595558510970478117}
-  - component: {fileID: 3297839033796671395}
-  - component: {fileID: 8778785700305855213}
+  - component: {fileID: 5663760989757190374}
+  - component: {fileID: 8877125503594075947}
   m_Layer: 0
-  m_Name: Teleportable
+  m_Name: Object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3529293233582169003}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.4, y: 0.72, z: 12.05409}
+  m_LocalPosition: {x: 19.122719, y: 0, z: 9.379151}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -93,7 +93,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3297839033796671395
+--- !u!114 &5663760989757190374
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,10 +102,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3529293233582169003}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35820d72a27ce6545b6e90cea7bb33f8, type: 3}
+  m_Script: {fileID: 11500000, guid: e0049234ad8a9a04387dab7604bf1f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8778785700305855213
+  heal: 0
+  points: 0
+--- !u!114 &8877125503594075947
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -34,7 +34,8 @@ public class ItemInstantiate : TNBehaviour
             int randomX = UnityEngine.Random.Range(0, (int)mapLength);
             TNManager.Instantiate(tno.channelID, "Object", prefabToInstantiate, true, randomZ, randomX);
         }
-        tno.Send(1, Target.AllSaved);
+       // tno.Send(1, Target.AllSaved);
+    
     }
 
     [RCC]

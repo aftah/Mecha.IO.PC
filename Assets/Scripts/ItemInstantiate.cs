@@ -6,28 +6,23 @@ using System;
 
 public class ItemInstantiate : TNBehaviour
 {
-    [SerializeField] private Transform mapCornerTop;
-    [SerializeField] private Transform mapCornerRight;
     private float mapHeight;
     private float mapLength;
     private int numberItems;
     private string prefabToInstantiate;
-
-    public float MapHeight { get => mapHeight; set => mapHeight = value; }
-    public float MapLength { get => mapLength; set => mapLength = value; }
+    private bool hasInstantiated = false;
 
     protected override void Awake()
     {
         base.Awake();
         numberItems = StaticData.DataInstance.numberOfTeleportableObjects;
         prefabToInstantiate = StaticData.DataInstance.teleportableObject;
+        mapHeight = StaticData.DataInstance.topLeftCornerPosition;
+        mapLength = StaticData.DataInstance.bottomRightCornerPosition;
     }
 
     private void Start()
     {
-        MapHeight = mapCornerTop.transform.position.z;
-        MapLength = mapCornerRight.transform.position.x;
-
         Invoke("InstantiateObjects", 1);
     }
 
@@ -35,10 +30,11 @@ public class ItemInstantiate : TNBehaviour
     {
         for (int i = 0; i < numberItems; i++)
         {
-            int randomZ = UnityEngine.Random.Range(0, (int)MapHeight);
-            int randomX = UnityEngine.Random.Range(0, (int)MapLength);
+            int randomZ = UnityEngine.Random.Range(0, (int)mapHeight);
+            int randomX = UnityEngine.Random.Range(0, (int)mapLength);
             TNManager.Instantiate(tno.channelID, "Object", prefabToInstantiate, true, randomZ, randomX);
         }
+        tno.Send(1, Target.AllSaved);
     }
 
     [RCC]
@@ -47,5 +43,12 @@ public class ItemInstantiate : TNBehaviour
         GameObject lootableObject = prefab.Instantiate();
         lootableObject.transform.position = new Vector3(XPos, 0, ZPos);
         return lootableObject;
+    }
+
+    [RFC(1)]
+    public void TechniqueSecrete()
+    {
+        Debug.Log("Ohboi");
+        DestroySelf();
     }
 }

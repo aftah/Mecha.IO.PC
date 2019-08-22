@@ -11,8 +11,8 @@ public class TeleportableObject : CollectableObject
     protected override void Awake()
     {
         base.Awake();
-        mapLength = FindObjectOfType<ItemInstantiate>().MapLength;
-        mapHeight = FindObjectOfType<ItemInstantiate>().MapHeight;
+        mapLength = StaticData.DataInstance.bottomRightCornerPosition;
+        mapHeight = StaticData.DataInstance.topLeftCornerPosition;
     }
 
     protected override void OnPickUp()

@@ -30,8 +30,13 @@ public class StaticData : MonoBehaviour
     public string destroyableObject;
     public float deathRangeLootOffset;
     public float autoDestroyDelay;
+    public Transform topLeftCorner;
+    public Transform bottomRightCorner;
+    [HideInInspector] public float topLeftCornerPosition;
+    [HideInInspector] public float bottomRightCornerPosition;
 
-   
+
+
     private void Awake()
     {
         if (DataInstance != null)
@@ -43,6 +48,8 @@ public class StaticData : MonoBehaviour
             DataInstance = this;
         }
 
+        topLeftCornerPosition = topLeftCorner.transform.position.z;
+        bottomRightCornerPosition = bottomRightCorner.transform.position.x;
     }
     
 
